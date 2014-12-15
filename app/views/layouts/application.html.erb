@@ -7,16 +7,34 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '605299402933098',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
   <div class="container">
     <ul class="nav nav-tabs">
       <li><%= link_to "Home", welcome_index_path %></li>
-      <li><%= link_to "About", welcome_about_path %></li>
 
          <div class="pull-right user-info">
            <% if current_user %>
              Hello <%= link_to (current_user.name || current_user.email), edit_user_registration_path %>! <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
            <% else %>
              <%= link_to "Sign In", new_user_session_path %> or 
+             <%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %> | 
              <%= link_to "Sign Up", new_user_registration_path %>
            <% end %>
          
