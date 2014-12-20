@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  resources :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+  
+  resources :users, only: [:update, :show, :index]
 
   get "welcome/index"
 
@@ -11,6 +12,10 @@ Rails.application.routes.draw do
 
   resources :topics do
     resources :bookmarks
+  end
+
+  resources :bookmarks do
+    resources :likes, only: [:create, :destroy]
   end
 
 end

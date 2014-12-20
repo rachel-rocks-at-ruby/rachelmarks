@@ -9,14 +9,9 @@
             <%= topic.name %>
               <div class="row">
                 <div class="col-md-8">
-                    <% topic.bookmarks.each do |bookmark| %>
-                      <div class="media">
-                        <div class="media-body">
-                          <h4 class="media-heading">
-                            <%= link_to bookmark.address, bookmark.address %>
-                          </h4> 
-                        </div>
-                      </div>
+                  <% topic.bookmarks.each do |bookmark| %>
+                      <h5><%= link_to bookmark.address, bookmark.address %></h5>
+                      <%#= render partial: 'likes/like', locals: { bookmark: @bookmark } %>
                     <% end %>
                 </div>      
               </div>
