@@ -2,14 +2,14 @@
 
 <div class="row">
   <div class="col-md-8">
-    <% @topics.each do |topic| %>
+    <% @topics.each do |t| %>
       <div class="media">
         <div class="media-body">
           <h4 class="media-heading">
-            <%= topic.name %>
+            <%= link_to t.name, topic_path(t.id) %>
               <div class="row">
                 <div class="col-md-8">
-                  <% topic.bookmarks.each do |bookmark| %>
+                  <% t.bookmarks.each do |bookmark| %>
                       <h5><%= link_to bookmark.address, bookmark.address %></h5>
                       <%#= render partial: 'likes/like', locals: { bookmark: @bookmark } %>
                     <% end %>

@@ -1,6 +1,7 @@
 <h1>My Rachelmarks</h1>
 
 <% @bookmarks.each do |b| %>
-  <h4><%= b.topic.name %></h4>
-  <p><h5><%= link_to b.address, b.address %></h5></p>
+    <h4><%= link_to  b.topic.name, topic_path(b.topic.id) %></h4>
+    <h5><%= link_to b.address, b.address %></h5> 
+    <%= link_to "Delete bookmark", bookmark_path(b.id), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this bookmark?' } %>
 <% end %>
