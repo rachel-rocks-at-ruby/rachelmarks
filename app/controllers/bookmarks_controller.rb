@@ -12,11 +12,6 @@ class BookmarksController < ApplicationController
     @bookmark = bookmarks.build(params.require(:bookmark).permit(:address))
   end
 
-  def show
-    @topic = Topic.find(params[:id])
-    @bookmarks = @topic.bookmarks
-  end
-
   def destroy
     @bookmark = Bookmark.find(params[:id])
     address = @bookmark.address

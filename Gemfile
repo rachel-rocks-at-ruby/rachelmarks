@@ -40,6 +40,7 @@ gem 'figaro', '1.0'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'faker'
+gem 'pry'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

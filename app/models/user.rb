@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 
   has_many :topics
   has_many :bookmarks
+  has_many :likes
+  has_many :bookmarks_from_likes, source: "bookmark", through: :likes
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
