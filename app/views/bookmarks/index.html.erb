@@ -1,7 +1,27 @@
-<h1>My Rachelmarks</h1>
+<h1>All Rachelmarks</h1>
 
-<% @bookmarks.each do |b| %>
-    <h4><%= link_to  b.topic.name, topic_path(b.topic.id) %></h4>
-    <h5><%= link_to b.address, b.address %></h5> 
-    <%= link_to "Delete bookmark", bookmark_path(b.id), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this bookmark?' } %>
-<% end %>
+<div class="row">
+  <div class="col-md-8">
+  <% @bookmarks_by_topics.each do |topic, bookmarks| %>
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">
+        <%= link_to topic, "/topics/"+topic %>
+          <div class="row">
+            <div class="col-md-8">
+              <% bookmarks.each do |bookmark| %>
+                <%= link_to bookmark.address, bookmark.address %>
+                <% if bookmark.likes.pluck(:user_id).include?(current_user.id) %>
+                    LIKED
+                <% elsif bookmark.user_id != current_user.id %>
+                  <%= link_to "Like bookmark", likes_path({like: { user_id: current_user.id, bookmark_id: bookmark.id}}), method: :post, class: 'btn btn-success', data: { confirm: 'This bookmark will be added to your Rachelmarks.' } %>
+                <% end %>
+              <% end %>
+                </div>      
+              </div>
+          </h4>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

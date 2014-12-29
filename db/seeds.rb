@@ -8,23 +8,15 @@ require 'faker'
     email:    Faker::Internet.email,
     password: Faker::Lorem.characters(10)
   )
-  user.skip_confirmation!
   user.save!
 end
 users = User.all
 
-# Create Topics
- 15.times do
-   Topic.create!(
-     name:     Faker::Lorem.word
-    )
- end
- topics = Topic.all
-
- # Create Bookmarks
+ # Create Bookmarks and Topics
  25.times do
    Bookmark.create!(
-     address:   Faker::Internet.url
+     address:   Faker::Internet.url,
+     topic:     Faker::Lorem.word
   )
  end
  bookmarks = Bookmark.all
@@ -35,7 +27,6 @@ users = User.all
    email:    'admin@example.com',
    password: 'helloworld',
  )
- admin.skip_confirmation!
  admin.save!
  
  # Create a member
@@ -44,10 +35,8 @@ users = User.all
    email:    'member@example.com',
    password: 'helloworld',
  )
- member.skip_confirmation!
  member.save!
 
 puts "Seed finished"
 puts "#{User.count} users created"
-puts "#{Topic.count} topics created"
 puts "#{Bookmark.count} bookmarks created"

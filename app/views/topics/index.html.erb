@@ -11,7 +11,9 @@
                 <div class="col-md-8">
                   <% t.bookmarks.each do |bookmark| %>
                       <h5><%= link_to bookmark.address, bookmark.address %></h5>
-                      <% if bookmark.user_id != current_user.id %>
+                      <% if bookmark.likes.pluck(:user_id).include?(current_user.id) %>
+                          LIKED
+                      <% elsif bookmark.user_id != current_user.id %>
                         <%= link_to "Like bookmark", likes_path({like: { user_id: current_user.id, bookmark_id: bookmark.id}}), method: :post, class: 'btn btn-success', data: { confirm: 'This bookmark will be added to your Rachelmarks.' } %>
                       <% end %>
                     <% end %>

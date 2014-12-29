@@ -4,12 +4,8 @@ def index
   @bookmarks = current_user.bookmarks_from_likes
 end
 
-def new
-  @like = Like.new
-end
-
 def create
-  @like = Like.create(likes_path({like: { user_id: current_user.id, bookmark_id: bookmark.id}}))
+  @like = Like.new(params.require(:like).permit( :user_id, :bookmark_id))
   if @like.save
       flash[:notice] = "Liked bookmark."
       redirect_to bookmarks_path
@@ -20,10 +16,10 @@ def create
     end
   end
 
+
 def destroy
-  @bookmark = Bookmark.find(params[:bookmark_id])
-  like = current_user.likes.find(params[:id])
-  if like.destroy
+  @like = Like.new(params.require(:like).permit( :user_id, :bookmark_id))
+  if @like.destroy
       flash[:notice] = "Like Removed"
       redirect_to bookmarks_path
 

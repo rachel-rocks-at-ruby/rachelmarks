@@ -10,11 +10,11 @@ Rails.application.routes.draw do
 
   post :incoming, to: 'incoming#create'
 
-  resources :topics do
-    resources :bookmarks
-  end
-
-  resources :bookmarks
+  resources :bookmarks, only: [:index, :create, :destroy]
 
   resources :likes, only: [:index, :create, :destroy]
+
+  resources :topics
+
+  get "bookmarks/my_rachelmarks"
 end

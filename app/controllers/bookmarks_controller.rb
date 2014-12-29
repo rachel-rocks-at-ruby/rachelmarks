@@ -1,7 +1,22 @@
 class BookmarksController < ApplicationController
 
   def index
-    @bookmarks = current_user.bookmarks
+    topics = Bookmark.pluck(:topic).uniq
+    @bookmarks_by_topics = {}
+
+    topics.each do |topic|
+      @bookmarks_by_topics[topic] = Bookmark.where(topic: topic)
+    end
+  end
+
+  def my_rachelmarks
+    @total_bookmarks = current_user.bookmarks + current_user.bookmarks_from_likes
+    topics = @total_bookmarks.map(&:topic).uniq
+    @bookmarks_by_topics = {}
+
+    topics.each do |topic|
+      @bookmarks_by_topics[topic] = current_user.bookmarks.where(topic: topic) + current_user.bookmarks_from_likes.where(topic: topic)
+    end
   end
 
   def new
@@ -9,20 +24,18 @@ class BookmarksController < ApplicationController
   end
 
   def create
-    @bookmark = bookmarks.build(params.require(:bookmark).permit(:address))
+    @bookmark = bookmarks.build(params.require(:bookmark).permit(:address, :topic))
   end
 
   def destroy
     @bookmark = Bookmark.find(params[:id])
-    address = @bookmark.address
  
     if @bookmark.destroy
-      flash[:notice] = "\"#{address}\" was deleted successfully."
+      flash[:notice] = "Bookmark was deleted successfully."
       redirect_to bookmarks_path
     else
       flash[:error] = "There was an error deleting the bookmark."
       render :show
     end
   end
-
 end
