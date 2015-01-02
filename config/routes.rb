@@ -10,7 +10,12 @@ Rails.application.routes.draw do
 
   post :incoming, to: 'incoming#create'
 
-  resources :bookmarks, only: [:index, :create, :destroy]
+  resources :bookmarks, only: [:index, :create, :destroy] do
+    # 1. member, 2. collection
+    # bookmakrs/1/my_rachelmarks <- my_rachelmarks belongs to Bookmakrs with id 1
+    # bookmakrs/my_rachelmarks <- 
+    # get 'my_rachelmarks', on: :member
+  end
 
   resources :likes, only: [:index, :create, :destroy]
 

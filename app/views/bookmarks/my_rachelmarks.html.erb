@@ -13,8 +13,8 @@
               <% bookmarks.each do |bookmark| %>
                 <%= link_to bookmark.address, bookmark.address %>
                 <% if bookmark.user_id != current_user.id %>
-                DISLIKE
-                  <%#= link_to "Dislike bookmark", like_path({like: { user_id: current_user.id, bookmark_id: bookmark.id, id: like.id }}), method: :delete, class: 'btn btn-danger', data: { confirm: 'This bookmark will be removed from your Rachelmarks.' } %>
+                <% like_id = Like.where('user_id = ? AND bookmark_id = ?', current_user.id, bookmark.id).pluck(:id).first %>
+                  <%= link_to "Dislike bookmark", like_path(like_id), method: :delete, class: 'btn btn-danger', data: { confirm: 'This bookmark will be removed from your Rachelmarks.' } %>
                 <% else %>
                   <%= link_to "Remove bookmark", bookmark, method: :delete, class: 'btn btn-danger', data: { confirm: 'This bookmark will be removed from Rachelmarks.' } %>
                 <% end %>

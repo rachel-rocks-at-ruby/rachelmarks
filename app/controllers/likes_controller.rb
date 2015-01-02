@@ -1,12 +1,12 @@
 class LikesController < ApplicationController
 
-def index
-  @bookmarks = current_user.bookmarks_from_likes
-end
+  def index
+    @bookmarks = current_user.bookmarks_from_likes
+  end
 
-def create
-  @like = Like.new(params.require(:like).permit( :user_id, :bookmark_id))
-  if @like.save
+  def create
+    @like = Like.new(params.require(:like).permit( :user_id, :bookmark_id))
+    if @like.save
       flash[:notice] = "Liked bookmark."
       redirect_to bookmarks_my_rachelmarks_path
 
@@ -17,9 +17,9 @@ def create
   end
 
 
-def destroy
-  @like = Like.new(params.require(:like).permit( :user_id, :bookmark_id))
-  if @like.destroy
+  def destroy
+    @like = Like.find(params[:id])
+    if @like.destroy
       flash[:notice] = "Like Removed"
       redirect_to bookmarks_my_rachelmarks_path
 
@@ -28,4 +28,5 @@ def destroy
       redirect_to bookmarks_my_rachelmarks_path
     end
   end
+
 end
