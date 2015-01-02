@@ -11,7 +11,7 @@ class IncomingController < ApplicationController
     @bookmark = Bookmark.new
     @bookmark.user = User.find_by_email(params["Sender"])
     @bookmark.topic = (params["Subject"])
-    @bookmark.address = (params["body-html"])
+    @bookmark.address = (params["body-plain"]).strip
 
     @bookmark.save!
 

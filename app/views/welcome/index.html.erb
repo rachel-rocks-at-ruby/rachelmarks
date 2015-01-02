@@ -2,7 +2,12 @@
 <div class="jumbotron">
   <h1>Rachelmarks</h1>
   <p>A delicious way of tracking you and your friends' favorite websites.</p>
-  <% if !current_user %>
+  <% if current_user %>
+    <ul>
+    <li>Send your bookmarks to: <%= mail_to "postmaster@app32501618.mailgun.org", "postmaster@app32501618.mailgun.org" %> </li>
+    <li>Make sure to hashtag your subject. E.g. #TaylorSwift</li>
+    <li>Include only the URL in your email body.</li></ul>
+  <% else %>
     <p>
         <%= link_to "Sign In", new_user_session_path, class: 'btn btn-primary' %> or 
         <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary' %> today!
