@@ -8,6 +8,13 @@ class IncomingController < ApplicationController
     # to get a sense of what you're dealing with.
     puts "INCOMING PARAMS HERE: #{params}"
 
+    @bookmark = Bookmark.new
+    @bookmark.user = User.find_by_email(params["Sender"])
+    @bookmark.topic = (params["Subject"])
+    @bookmark.address = (params["body-html"])
+
+    @bookmark.save!
+
     # You put the message-splitting and business
     # magic here. 
 
