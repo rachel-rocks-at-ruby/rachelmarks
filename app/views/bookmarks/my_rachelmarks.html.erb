@@ -11,7 +11,7 @@
                  <div class="row">
                 <div class="col-md-8">
               <% bookmarks.each do |bookmark| %>
-                <%= link_to bookmark.address, bookmark.address %>
+              <a class="embedly-card" href=<%= bookmark.address %> data-card-theme="dark"></a>
                 <% if bookmark.user_id != current_user.id %>
                 <% like_id = Like.where('user_id = ? AND bookmark_id = ?', current_user.id, bookmark.id).pluck(:id).first %>
                   <%= link_to "Dislike bookmark", like_path(like_id), method: :delete, class: 'btn btn-danger', data: { confirm: 'This bookmark will be removed from your Rachelmarks.' } %>
@@ -24,3 +24,6 @@
     <% end %>
   </div>
 </div>
+
+<script src="http://cdn.embed.ly/jquery.embedly-3.1.1.min.js" type="text/javascript"></script>
+<script src="//cdn.embedly.com/widgets/platform.js"></script>
